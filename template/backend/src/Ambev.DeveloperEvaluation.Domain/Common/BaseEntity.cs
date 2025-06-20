@@ -2,22 +2,22 @@
 
 namespace Ambev.DeveloperEvaluation.Domain.Common;
 
-public class BaseEntity : IComparable<BaseEntity>
+public class BaseEntity<T>: IComparable<BaseEntity<T>> where T : IComparable<T>
 {
-    public Guid Id { get; set; }
+    public T Id { get; set; }
 
     public Task<IEnumerable<ValidationErrorDetail>> ValidateAsync()
     {
         return Validator.ValidateAsync(this);
     }
 
-    public int CompareTo(BaseEntity? other)
+    public int CompareTo(BaseEntity<T>? other)
     {
         if (other == null)
         {
             return 1;
         }
 
-        return other!.Id.CompareTo(Id);
+        return Id.CompareTo(other.Id); 
     }
 }
