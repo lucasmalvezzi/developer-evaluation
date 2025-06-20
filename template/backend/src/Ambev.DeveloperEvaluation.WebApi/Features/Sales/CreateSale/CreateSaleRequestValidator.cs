@@ -14,7 +14,6 @@ public class CreateSaleRequestValidator : AbstractValidator<CreateSaleRequest>
         {
             item.RuleFor(item => item.ProductId).NotEmpty();
             item.RuleFor(item => item.Quantity).GreaterThan(0);
-            item.RuleFor(item => item.UnitPrice).GreaterThan(0);
         });
 
     }

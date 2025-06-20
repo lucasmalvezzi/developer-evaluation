@@ -26,7 +26,7 @@ public class SaleValidator : AbstractValidator<Sale>
         RuleFor(sale => sale.Branch)
             .NotEmpty().MaximumLength(100).WithMessage("Branch must not be empty.");
 
-        RuleFor(sale=> sale.SaleItems).Empty()
+        RuleFor(sale=> sale.SaleItems).NotEmpty()
             .WithMessage("Sale must have at least one item.");
     }
 }

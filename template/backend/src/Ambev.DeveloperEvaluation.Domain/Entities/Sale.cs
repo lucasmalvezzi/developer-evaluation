@@ -14,7 +14,7 @@ public class Sale : BaseEntity<int>
     public bool IsCancelled { get; set; }
     public DateTime SaleDate { get; set; }
 
-    public IEnumerable<SaleItem> SaleItems = new List<SaleItem>();
+    public IEnumerable<SaleItem> SaleItems { get; set; } = new List<SaleItem>();
 
     public decimal TotalAmount => SaleItems.Sum(i => i.Total);
     protected Sale()

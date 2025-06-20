@@ -1,10 +1,12 @@
-﻿using AutoMapper;
-using MediatR;
-using FluentValidation;
+﻿using Ambev.DeveloperEvaluation.Domain.Entities;
 using Ambev.DeveloperEvaluation.Domain.Repositories;
-using Ambev.DeveloperEvaluation.Domain.Entities;
 using Ambev.DeveloperEvaluation.Domain.Validation;
+using AutoMapper;
+using FluentValidation;
+using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
+using static Ambev.DeveloperEvaluation.Application.Sales.CreateSale.CreateSaleCommand;
 
 namespace Ambev.DeveloperEvaluation.Application.Sales.CreateSale;
 
@@ -33,9 +35,15 @@ public class CreateUserHandler : IRequestHandler<CreateSaleCommand, CreateSaleRe
 
         var products = await _productRepository.GetByIds(command.SaleItems.Select(si=>si.ProductId), cancellationToken);
 
+        command.SaleItems = command.SaleItems.GroupBy(si => si.ProductId).Select(si => new CreateSaleItemsCommand
+        {
+            ProductId = si.Key,
+            Quantity = si.Sum(x => x.Quantity)
+        }).ToList();
+
         var sale = _mapper.Map<Sale>(command);
 
-        foreach (var item in command.SaleItems)
+        foreach (var item in sale.SaleItems)
         {
             var product = products.FirstOrDefault(p => p.Id == item.ProductId);
             if (product == null)
