@@ -20,14 +20,7 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities
         public decimal Discount => CalculateDiscountPercentage() * UnitPrice * Quantity;
         public decimal Total => (Quantity * UnitPrice) - Discount ;
 
-        protected SaleItem() { }
-
-        public SaleItem(Product product, int quantity, decimal unitPrice, decimal discountPercentage)
-        {
-            Product = product;
-            Quantity = quantity;
-            UnitPrice = unitPrice;
-        }
+        public SaleItem() { }
         private decimal CalculateDiscountPercentage()
         {
             if (Quantity >= 4 && Quantity < 10)

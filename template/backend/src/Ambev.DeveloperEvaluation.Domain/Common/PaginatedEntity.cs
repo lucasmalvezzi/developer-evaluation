@@ -1,6 +1,6 @@
-﻿namespace Ambev.DeveloperEvaluation.WebApi.Common;
-
-public class PaginatedList<T>
+﻿
+namespace Ambev.DeveloperEvaluation.Domain.Common;
+public class PaginatedEntity<T>
 {
     public int CurrentPage { get; set; }
     public int TotalPages { get; set; }
