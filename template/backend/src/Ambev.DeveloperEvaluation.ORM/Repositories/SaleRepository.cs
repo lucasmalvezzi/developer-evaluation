@@ -29,7 +29,7 @@ public class SaleRepository : ISaleRepository
     {
         return await _context.Sales
             .Include(s => s.SaleItems)
-            .ThenInclude(si => si.Product).Where(s => s.Id == id).FirstAsync(cancellationToken);
+            .ThenInclude(si => si.Product).Where(s => s.Id == id).FirstOrDefaultAsync(cancellationToken);
     }
 
     public async Task<bool> DeleteAsync(int id, CancellationToken cancellationToken = default)

@@ -10,15 +10,15 @@ using static Ambev.DeveloperEvaluation.Application.Sales.UpdateSale.UpdateSaleCo
 
 namespace Ambev.DeveloperEvaluation.Application.Sales.UpdateSale;
 
-public class CreateUserHandler : IRequestHandler<UpdateSaleCommand, UpdateSaleResult>
+public class UpdateSaleHandler : IRequestHandler<UpdateSaleCommand, UpdateSaleResult>
 {
     private readonly IProductRepository _productRepository;
     private readonly ISaleRepository _saleRepository;
     private readonly IUserRepository _userRepository;
-    private readonly ILogger<CreateUserHandler> _logger;
+    private readonly ILogger<UpdateSaleHandler> _logger;
     private readonly IMapper _mapper;
 
-    public CreateUserHandler(IProductRepository productRepository, IUserRepository userRepository, ISaleRepository saleRepository,IMapper mapper, ILogger<CreateUserHandler> logger)
+    public UpdateSaleHandler(IProductRepository productRepository, IUserRepository userRepository, ISaleRepository saleRepository,IMapper mapper, ILogger<UpdateSaleHandler> logger)
     {
         _productRepository = productRepository;
         _saleRepository = saleRepository;
@@ -35,7 +35,7 @@ public class CreateUserHandler : IRequestHandler<UpdateSaleCommand, UpdateSaleRe
 
         var customer = await _userRepository.GetByIdAsync(command.CustomerId, cancellationToken);
         if (customer == null)
-            throw new InvalidOperationException($"Customer not exists");
+            throw new KeyNotFoundException($"Customer not exists");
 
         var products = await _productRepository.GetByIds(command.SaleItems.Select(si=>si.ProductId), cancellationToken);
 
@@ -59,7 +59,7 @@ public class CreateUserHandler : IRequestHandler<UpdateSaleCommand, UpdateSaleRe
         {
             var product = products.FirstOrDefault(p => p.Id == item.ProductId);
             if (product == null)
-                throw new InvalidOperationException($"Product {item.ProductId} not exists");
+                throw new KeyNotFoundException($"Product {item.ProductId} not exists");
             item.UnitPrice = product.Price;
         }
 
@@ -113,7 +113,8 @@ public class CreateUserHandler : IRequestHandler<UpdateSaleCommand, UpdateSaleRe
     {
         var canceledItems = new List<SaleItem>();
         var commandProductIds = command.SaleItems.Select(csi => csi.ProductId).ToList();
-        foreach (var item in existingSale.SaleItems.Where(si => !commandProductIds.Contains(si.ProductId)))
+        var itensToRemove = existingSale.SaleItems.Where(si => !commandProductIds.Contains(si.ProductId)).ToList();
+        foreach (var item in itensToRemove)
         {
             existingSale.SaleItems.Remove(item);
             canceledItems.Add(item);

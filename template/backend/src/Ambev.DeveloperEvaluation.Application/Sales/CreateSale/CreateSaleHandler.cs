@@ -31,7 +31,7 @@ public class CreateUserHandler : IRequestHandler<CreateSaleCommand, CreateSaleRe
     {
         var customer = await _userRepository.GetByIdAsync(command.CustomerId, cancellationToken);
         if (customer == null)
-            throw new InvalidOperationException($"Customer not exists");
+            throw new KeyNotFoundException($"Customer not exists");
 
         var products = await _productRepository.GetByIds(command.SaleItems.Select(si=>si.ProductId), cancellationToken);
 
@@ -47,7 +47,7 @@ public class CreateUserHandler : IRequestHandler<CreateSaleCommand, CreateSaleRe
         {
             var product = products.FirstOrDefault(p => p.Id == item.ProductId);
             if (product == null)
-                throw new InvalidOperationException($"Product {item.ProductId} not exists");
+                throw new KeyNotFoundException($"Product {item.ProductId} not exists");
             item.UnitPrice = product.Price;
         }
 

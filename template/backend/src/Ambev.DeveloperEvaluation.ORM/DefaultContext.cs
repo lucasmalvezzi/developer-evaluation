@@ -28,7 +28,10 @@ public class DefaultContext : DbContext
                 new Product { Id = Guid.Parse("dddddddd-dddd-dddd-dddd-dddddddddddd"), Title = "Product D", Price = 12.4m },
                 new Product { Id = Guid.Parse("eeeeeeee-eeee-eeee-eeee-eeeeeeeeeeee"), Title = "Product E", Price = 13.1m },
                 new Product { Id = Guid.Parse("ffffffff-ffff-ffff-ffff-ffffffffffff"), Title = "Product F", Price = 7.63m },
-                new Product { Id = Guid.Parse("11111111-1111-1111-1111-111111111111"), Title = "Product G", Price = 30.3m }
+                new Product { Id = Guid.Parse("11111111-1111-1111-1111-111111111111"), Title = "Product G", Price = 30.3m },
+                new Product { Id = Guid.Parse("22222222-2222-2222-2222-222222222222"), Title = "Product H", Price = 15.0m },
+                new Product { Id = Guid.Parse("33333333-3333-3333-3333-333333333333"), Title = "Product I", Price = 9.99m },
+                new Product { Id = Guid.Parse("44444444-4444-4444-4444-444444444444"), Title = "Product J", Price = 20.0m }
         );
     }
 }

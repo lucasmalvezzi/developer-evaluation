@@ -102,6 +102,9 @@ namespace Ambev.DeveloperEvaluation.ORM.Migrations
                 values: new object[,]
                 {
                     { new Guid("11111111-1111-1111-1111-111111111111"), 30.3m, "Product G" },
+                    { new Guid("22222222-2222-2222-2222-222222222222"), 15.0m, "Product H" },
+                    { new Guid("33333333-3333-3333-3333-333333333333"), 9.99m, "Product I" },
+                    { new Guid("44444444-4444-4444-4444-444444444444"), 20.0m, "Product J" },
                     { new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa"), 5.1m, "Product A" },
                     { new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb"), 22.8m, "Product B" },
                     { new Guid("cccccccc-cccc-cccc-cccc-cccccccccccc"), 31.3m, "Product C" },

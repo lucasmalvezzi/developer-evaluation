@@ -22,7 +22,7 @@ public class GetSaleHandler : IRequestHandler<GetSaleCommand, GetSaleResult>
     {
         var user = await _saleRepository.GetByIdAsync(command.Id, cancellationToken);
         if (user == null)
-            throw new KeyNotFoundException($"User with ID {command.Id} not found");
+            throw new KeyNotFoundException($"Sale with ID {command.Id} not found");
 
         return _mapper.Map<GetSaleResult>(user);
     }

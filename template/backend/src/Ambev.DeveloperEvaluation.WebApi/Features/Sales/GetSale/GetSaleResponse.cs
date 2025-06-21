@@ -8,18 +8,18 @@ public class GetSaleResponse
     public bool IsCancelled { get; set; }
     public DateTime SaleDate { get; set; }
 
-    public IEnumerable<CreateSaleItemResponse> SaleItems { get; set; } = new List<CreateSaleItemResponse>();
+    public IEnumerable<GetSaleItemResponse> SaleItems { get; set; } = new List<GetSaleItemResponse>();
     public decimal TotalAmount { get; set; }
 
-    public class CreateSaleItemResponse
+    public class GetSaleItemResponse
     {
-        public CreateSaleProductResponse Product { get; set; } = new CreateSaleProductResponse();
+        public GetSaleProductResponse Product { get; set; } = new GetSaleProductResponse();
         public int Quantity { get; set; }
         public decimal UnitPrice { get; set; }
         public decimal Discount { get; set; }
         public decimal Total { get; set; }
     }
-    public class CreateSaleProductResponse
+    public class GetSaleProductResponse
     {
         public Guid Id { get; set; } = Guid.Empty;
         public string Title { get; set; } = string.Empty;

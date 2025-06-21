@@ -83,6 +83,24 @@ namespace Ambev.DeveloperEvaluation.ORM.Migrations
                             Id = new Guid("11111111-1111-1111-1111-111111111111"),
                             Price = 30.3m,
                             Title = "Product G"
+                        },
+                        new
+                        {
+                            Id = new Guid("22222222-2222-2222-2222-222222222222"),
+                            Price = 15.0m,
+                            Title = "Product H"
+                        },
+                        new
+                        {
+                            Id = new Guid("33333333-3333-3333-3333-333333333333"),
+                            Price = 9.99m,
+                            Title = "Product I"
+                        },
+                        new
+                        {
+                            Id = new Guid("44444444-4444-4444-4444-444444444444"),
+                            Price = 20.0m,
+                            Title = "Product J"
                         });
                 });
 

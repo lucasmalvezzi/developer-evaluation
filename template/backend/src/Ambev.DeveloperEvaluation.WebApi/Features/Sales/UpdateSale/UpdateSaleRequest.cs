@@ -4,8 +4,7 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales.UpdateSale;
 
 public class UpdateSaleRequest
 {
-    [FromRoute]
-    public int Id { get; set; }
+    public int Id { get; private set; }
     public Guid CustomerId { get; set; } 
     public string Branch { get; set; } = string.Empty;
 
@@ -17,5 +16,9 @@ public class UpdateSaleRequest
     {
         public Guid ProductId { get; set; } = Guid.Empty;
         public int Quantity { get; set; }
+    }
+    public void SetId(int id)
+    {
+        Id = id;
     }
 }

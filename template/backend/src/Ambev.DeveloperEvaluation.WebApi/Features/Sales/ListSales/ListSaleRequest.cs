@@ -3,14 +3,14 @@ using Microsoft.AspNetCore.Mvc;
 namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales.GetSale;
 public class ListSaleRequest
 {
-    [FromRoute]
+    [FromQuery]
     public Guid? CustomerId { get; set; } = null;
-    [FromRoute]
+    [FromQuery]
     public string? Branch { get; set; } = null;
-    [FromRoute]
+    [FromQuery]
     public bool? IsCancelled { get; set; } = null;
-    [FromRoute]
+    [FromQuery]
     public int _page { get; set; } = 1;
-    [FromRoute]
+    [FromQuery]
     public int _pageSize { get; set; } = 10;
 }
