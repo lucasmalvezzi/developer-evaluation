@@ -8,6 +8,7 @@ using Ambev.DeveloperEvaluation.ORM;
 using Ambev.DeveloperEvaluation.WebApi.Middleware;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 using Serilog;
 
 namespace Ambev.DeveloperEvaluation.WebApi;
@@ -53,7 +54,7 @@ public class Program
             builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 
             var app = builder.Build();
-            app.UseMiddleware<ValidationExceptionMiddleware>();
+            app.UseMiddleware<ExceptionMiddleware>();
 
             if (app.Environment.IsDevelopment())
             {
@@ -69,8 +70,22 @@ public class Program
             app.UseBasicHealthChecks();
 
             app.MapControllers();
+            try
+            {
+                using (var scope = app.Services.CreateScope())
+                {
+                    var db = scope.ServiceProvider.GetRequiredService<DefaultContext>();
+                    db.Database.Migrate();
+                    Log.Error("Migration completed");
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error("Error running migration");
+            }
 
             app.Run();
+
         }
         catch (Exception ex)
         {

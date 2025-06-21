@@ -28,7 +28,7 @@ public class BaseController : ControllerBase
     protected IActionResult OkPaginated<T>(PaginatedList<T> pagedList) =>
             Ok(new PaginatedResponse<T>
             {
-                Data = pagedList,
+                Data = pagedList.Items,
                 CurrentPage = pagedList.CurrentPage,
                 TotalPages = pagedList.TotalPages,
                 TotalCount = pagedList.TotalCount,
